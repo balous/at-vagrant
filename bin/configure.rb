@@ -61,9 +61,7 @@ def copy_packages src_dir, app_path
 end
 
 def unpackApp name
-	system("ls -l #{name}*.tar.gz")
-	pp Dir.glob("#{name}*.tar.gz")
-	tgz = Dir.glob("#{name}*.tar.gz")[0]
+	tgz = `ls -1 #{name}*.tar.gz`.chomp
 	command = "tar xfzv \"#{tgz}\""
 	puts "Unpacking test app: #{command}"
 	raise "Unable to unpack app archive" if system(command) != true
@@ -83,9 +81,6 @@ def testConfig app_path, product, packages
 	result = ERB.new(template).result binding
 	File.write dst, result
 end
-
-system('pwd')
-system('ls -l')
 
 options = parseOptions
 
