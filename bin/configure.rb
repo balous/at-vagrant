@@ -61,6 +61,7 @@ def copy_packages src_dir, app_path
 end
 
 def unpackApp name
+	system("ls -l #{name}*.tar.gz")
 	pp Dir.glob("#{name}*.tar.gz")
 	tgz = Dir.glob("#{name}*.tar.gz")[0]
 	command = "tar xfzv \"#{tgz}\""
