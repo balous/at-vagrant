@@ -61,6 +61,7 @@ def copy_packages src_dir, app_path
 end
 
 def unpackApp name
+	pp Dir.glob("#{name}*.tar.gz")
 	tgz = Dir.glob("#{name}*.tar.gz")[0]
 	command = "tar xfzv \"#{tgz}\""
 	puts "Unpacking test app: #{command}"
@@ -83,6 +84,7 @@ def testConfig app_path, product, packages
 end
 
 system('pwd')
+system('ls -l')
 
 options = parseOptions
 
