@@ -1,0 +1,11 @@
+<global-test-config>
+	<product><%=product%></product>
+	<version>0.0.0</version>
+	<build>0</build>
+	<packages>
+		<%packages.each do |package|%>
+			<%="<package name=\"#{package["name"]}\" value=\"#{package["path"]}\"/>"%>
+		<%end%>
+	</packages>
+	<properties/>
+</global-test-config>

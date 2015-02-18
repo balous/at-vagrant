@@ -1,0 +1,26 @@
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+ config.vm.box = "vsphere"
+ config.vm.guest = :windows
+
+ config.ssh.username = "vagrant"
+ config.ssh.insert_key = false
+
+ config.vm.synced_folder ".", "/Users/vagrant/vagrant", type: "rsync", disabled: true, rsync__args: ["--verbose", "--rsync-path=c:/rsync/rsync"]
+ config.vm.provider :vsphere do |vsphere|
+  vsphere.host                  = '<%=options[:vsphere_host]%>'
+  vsphere.user                  = '<%=options[:vsphere_user]%>'
+  vsphere.password              = '<%=options[:vsphere_password]%>'
+  vsphere.insecure              = true
+
+  vsphere.data_center_name      = "<%=options[:vsphere_dc]%>"
+  vsphere.compute_resource_name = '<%=options[:vsphere_cr]%>'
+  vsphere.resource_pool_name    = '<%=options[:vsphere_rp]%>'
+  vsphere.template_name         = '<%=options[:vsphere_template]%>'
+
+  vsphere.name                  = '<%=options[:vsphere_vm]%>'
+  vsphere.clone_from_vm         = true
+  vsphere.linked_clone          = true
+ end
+end
