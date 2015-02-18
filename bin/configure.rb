@@ -57,6 +57,10 @@ def copy_packages src_dir, app_path
 		FileUtils.copy(src, "#{app_path}/#{dst}")
 	end
 
+	command = "chmod -R a+x '#{dst_dir}'"
+	puts "Executing: #{command}"
+	raise "Unable to se package files permitions." if system(command) != true
+
 	return packages_test
 end
 
