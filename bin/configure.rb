@@ -62,8 +62,9 @@ end
 
 def unpackApp name
 	tgz = Dir.glob("#{name}*.tar.gz")[0]
-	puts "Unpacking test app"
-	raise "Unable to unpack app archive" if system("tar xfzv \"#{tgz}\"") != true
+	command = "tar xfzv \"#{tgz}\""
+	puts "Unpacking test app: #{command}"
+	raise "Unable to unpack app archive" if system(command) != true
 end
 
 def testConfig app_path, product, packages
