@@ -55,8 +55,11 @@ end
 
 def generate dst, options
 
-	src = "#{File.dirname $0}/../templates/Vagrantfile.erb"
+	root = File.absolute_path("#{File.dirname $0}/..")
+	src = "#{root}/templates/Vagrantfile.erb"
 	puts "Generating #{src}"
+
+	dummy_box = "file://#{root}/box/dummy.box"
 
 	template = File.read(src)
 	result = ERB.new(template).result binding

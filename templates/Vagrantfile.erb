@@ -2,6 +2,7 @@ VAGRANTFILE_API_VERSION = "2"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
  config.vm.box = "vsphere"
+ config.vm.box_url = '<%=dummy_box%>'
  config.vm.guest = :windows
 
  config.ssh.username = "vagrant"
