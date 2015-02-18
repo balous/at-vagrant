@@ -36,7 +36,7 @@ def parseOptions
 end
 
 def app_path name
-	path = Dir.glob("#{name}*")[0]
+	path = `ls -1 | grep #{name} | head -1`.chomp
 	return path
 end
 
