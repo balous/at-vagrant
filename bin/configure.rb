@@ -16,7 +16,7 @@ def parseOptions
 		end
 
 		opts.on("--packages_path=path", "Path to packages to test") do |val|
-			options[:packages] = val
+			options[:packages_path] = val
 		end
 
 		opts.on("--product=name", "Name of product as understood by AT framework") do |val|
@@ -28,7 +28,7 @@ def parseOptions
 		end
 	end.parse!
 
-	[:test_app, :packages, :product].each do |option|
+	[:test_app, :packages_path, :product].each do |option|
 		raise "Option '#{option}' must be specified!" if options[option].nil?
 	end
 
@@ -40,7 +40,7 @@ def app_path name
 	return path
 end
 
-def packages src_dir, app_path
+def copy_packages src_dir, app_path
 	dst_dir = "#{app_path}/packages"
 	FileUtils.mkdir_p(dst_dir)
 
@@ -87,6 +87,6 @@ unpackApp options[:test_app]
 
 app_path = app_path(options[:test_app])
 
-packages = packages(options[:packages], app_path)
+packages = copy_packages(options[:packages_path], app_path)
 
 testConfig app_path, options[:product], packages
