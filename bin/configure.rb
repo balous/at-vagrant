@@ -82,6 +82,8 @@ def testConfig app_path, product, packages
 	File.write dst, result
 end
 
+system('pwd')
+
 options = parseOptions
 
 unpackApp options[:test_app]
