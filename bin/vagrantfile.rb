@@ -21,14 +21,6 @@ def parseOptions
 			options[:vsphere_password] = val
 		end
 
-		opts.on("--vsphere_cr=name", "vSphere compute resource name") do |val|
-			options[:vsphere_cr] = val
-		end
-
-		opts.on("--vsphere_rp=name", "vSphere resource pool name") do |val|
-			options[:vsphere_rp] = val
-		end
-
 		opts.on("--vsphere_template=name", "VM template name") do |val|
 			options[:vsphere_template] = val
 		end
@@ -46,7 +38,7 @@ def parseOptions
 		end
 	end.parse!
 
-	[:vsphere_host, :vsphere_user, :vsphere_password, :vsphere_cr, :vsphere_rp, :vsphere_template, :vsphere_dc, :vsphere_vm].each do |option|
+	[:vsphere_host, :vsphere_user, :vsphere_password, :vsphere_template, :vsphere_dc, :vsphere_vm].each do |option|
 		raise "Option '#{option}' must be specified!" if options[option].nil?
 	end
 

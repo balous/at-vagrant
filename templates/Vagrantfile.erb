@@ -16,8 +16,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   vsphere.insecure              = true
 
   vsphere.data_center_name      = "<%=options[:vsphere_dc]%>"
-  vsphere.compute_resource_name = '<%=options[:vsphere_cr]%>'
-  vsphere.resource_pool_name    = '<%=options[:vsphere_rp]%>'
   vsphere.template_name         = '<%=options[:vsphere_template]%>'
 
   vsphere.name                  = '<%=options[:vsphere_vm]%>'
