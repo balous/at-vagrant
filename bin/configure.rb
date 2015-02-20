@@ -42,6 +42,7 @@ end
 
 def copy_packages src_dir, app_path
 	dst_dir = "#{app_path}/packages"
+	FileUtils.rm_r(dst_dir)
 	FileUtils.mkdir_p(dst_dir)
 
 	packages_build = XmlSimple.xml_in(File.read("#{src_dir}/packages.txt"))["package"]
