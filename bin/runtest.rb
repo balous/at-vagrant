@@ -70,7 +70,7 @@ options = parseOptions
 
 ssh_config(ssh_config)
 
-app_path = Dir.glob("#{options[:test_app]}*")[0]
+app_path = Dir.glob("#{options[:test_app]}*").select {|f| not f =~ /\.gz$/}[0]
 
 sync(ssh_config, app_path)
 
