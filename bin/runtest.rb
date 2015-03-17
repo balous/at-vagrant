@@ -68,7 +68,7 @@ def download_results ssh_config, app_path, results_file
 	raise "Unable to download test results file." if system(command) != true
 end
 
-def download_results ssh_config, app_path, logs_dir
+def download_logs ssh_config, app_path, logs_dir
 	commands = "scp -r -F \"#{ssh_config}\" \"default:#{app_path}/#{logs_dir}\" \"#{logs_dir}\""
 	puts("Executing: #{command}")
 	raise "Unable to download test results file." if system(command) != true
