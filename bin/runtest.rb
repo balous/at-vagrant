@@ -87,7 +87,7 @@ sync(ssh_config, app_path)
 result = run(app_path, options[:plan], options[:class], File.basename(options[:results]))
 
 download_results(ssh_config, app_path, File.basename(options[:results]))
-download_logs   (ssh_config, app_path, File.basename(options[:logs]))
+download_logs(ssh_config, app_path, File.basename(options[:logs]))
 
 exit result
 
