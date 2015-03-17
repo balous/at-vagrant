@@ -19,11 +19,15 @@ def parseOptions
 		opts.on("--test_app=name", "Name of test application") do |val|
 			options[:test_app] = val
 		end
-		
+
 		opts.on("--results=path", "Path to xml with test results") do |val|
 			options[:results] = val
 		end
-		
+
+		opts.on("--logs=path", "Path to directory with test logs") do |val|
+			options[:logs] = val
+		end
+
 		opts.on('-h', '--help', "Print usage") do
 			puts opts
 		end
@@ -59,7 +63,13 @@ def run app_name, plan, class_name, results_file
 end
 
 def download_results ssh_config, app_path, results_file
-	command = "scp -F \"#{ssh_config}\" \"default:#{app_path}/#{results_file}\" \"#{results_file}\""
+	commands = "scp -F \"#{ssh_config}\" \"default:#{app_path}/#{results_file}\" \"#{results_file}\""
+	puts("Executing: #{command}")
+	raise "Unable to download test results file." if system(command) != true
+end
+
+def download_results ssh_config, app_path, logs_dir
+	commands = "scp -r -F \"#{ssh_config}\" \"default:#{app_path}/#{logs_dir}\" \"#{logs_dir}\""
 	puts("Executing: #{command}")
 	raise "Unable to download test results file." if system(command) != true
 end
@@ -77,6 +87,7 @@ sync(ssh_config, app_path)
 result = run(app_path, options[:plan], options[:class], File.basename(options[:results]))
 
 download_results(ssh_config, app_path, File.basename(options[:results]))
+download_logs   (ssh_config, app_path, File.basename(options[:logs]))
 
 exit result
 
