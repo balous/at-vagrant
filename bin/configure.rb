@@ -42,7 +42,7 @@ end
 
 def copy_packages src_dir, app_path
 	dst_dir = "#{app_path}/packages"
-	FileUtils.rm_r(dst_dir)
+	FileUtils.rm_r(dst_dir) if Dir.exist?(dst_dir)
 	FileUtils.mkdir_p(dst_dir)
 
 	packages_build = XmlSimple.xml_in(File.read("#{src_dir}/packages.txt"))["package"]
@@ -70,6 +70,7 @@ def unpackApp name
 	command = "tar xfzv \"#{tgz}\""
 	puts "Unpacking test app: #{command}"
 	raise "Unable to unpack app archive" if system(command) != true
+	$stdout.flush
 end
 
 def testConfig app_path, product, packages
