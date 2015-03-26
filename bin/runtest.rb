@@ -62,16 +62,20 @@ def run app_name, plan, class_name, results_file
 	end
 end
 
-def download_results ssh_config, app_path, results_file
+def download_results ssh_config, app_path, results_file, logs_dir
+
 	command = "scp -F \"#{ssh_config}\" \"default:#{app_path}/#{results_file}\" \"#{results_file}\""
 	puts("Executing: #{command}")
 	raise "Unable to download test results file." if system(command) != true
-end
 
-def download_logs ssh_config, app_path, logs_dir
-	command = "scp -r -F \"#{ssh_config}\" \"default:#{app_path}/#{logs_dir}\" \"#{logs_dir}\""
+#	command = "scp -r -F \"#{ssh_config}\" \"default:#{app_path}/logs\" \"#{logs_dir}\""
+#	puts("Executing: #{command}")
+#	raise "Unable to download logs directory." if system(command) != true
+
+	command = "scp -r -F \"#{ssh_config}\" \"default:#{app_path}/output-files\" \"#{logs_dir}\""
 	puts("Executing: #{command}")
-	raise "Unable to download test results file." if system(command) != true
+	raise "Unable to download output-files directory." if system(command) != true
+
 end
 
 ssh_config = 'ssh-config'
@@ -86,8 +90,7 @@ sync(ssh_config, app_path)
 
 result = run(app_path, options[:plan], options[:class], File.basename(options[:results]))
 
-download_results(ssh_config, app_path, File.basename(options[:results]))
-download_logs(ssh_config, app_path, File.basename(options[:logs]))
+download_results(ssh_config, app_path, File.basename(options[:results]), File.basename(options[:logs]))
 
 exit result
 
