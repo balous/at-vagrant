@@ -60,6 +60,8 @@ def run app_name, plan, class_name, results_file
 	       puts "Test execution failed."
 	       return 1
 	end
+
+	return 0
 end
 
 def download_results ssh_config, app_path, results_file, logs_dir
